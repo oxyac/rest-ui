@@ -1,0 +1,33 @@
+<form [formGroup]="form_dept" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="language">Language Employé</label>
+    <input formControlName="language" type="text" class="form-control" id="language"
+           placeholder="Enter Language"
+           [ngClass]="{'form-control': true, 'error' : f['language'].invalid && f['language'].touched}">
+    <small id="emailHelp" class="form-text text-muted">Language used during development</small>
+  </div>
+  <div class="row">
+
+    <div style="width:50%" >
+      <ng-multiselect-dropdown
+        [placeholder]="'Assign Programmers to Department'"
+        [settings]="dropdownSettings"
+        [data]="dropdownList"
+        (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+        (onDeSelect)="onItemDeSelect($event)"
+        (onDeSelectAll)="onUnSelectAll()">
+      </ng-multiselect-dropdown>
+    </div>
+    <div class="col">
+      <select formControlName="project_id" class="form-select" id="project_id">
+        <option selected value="1">Assign To Project</option>
+        <option *ngFor="let project of projects" [value]="project.id">{{project.name}}</option>\
+      </select>
+    </div>
+  </div>
+  <hr/>
+  <button [disabled]="form_dept.invalid" type="submit" class="btn btn-success">Create</button>
+  <button disabled type="submit" class="btn btn-primary">Auto</button>
+
+</form>
