@@ -4,6 +4,8 @@ import {ResponseHttp} from "../models/responseHttp";
 import {environment} from "../../environments/environment";
 import {catchError, map, Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {JsonPipe} from "@angular/common";
+import {parseJson} from "@angular/cli/utilities/json-file";
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +36,14 @@ export class DepartmentService {
     );
   }
 
-  testCors() {
-
-    // this.http.get(environment.apiUrl, { 'headers': headers });
+  getDepartment(id: number) {
+    return this.http.get<ResponseHttp>(environment.apiUrl + 'api/departments/' + id).pipe(
+      map((data)=> {
+        return data;
+      }),
+      catchError((error)=>{
+        return throwError(error);
+      })
+    );
   }
 }

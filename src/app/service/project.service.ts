@@ -22,4 +22,15 @@ export class ProjectService {
       })
     );
   }
+
+  assignProject(data: Object) {
+    return this.http.put(environment.apiUrl + 'api/projects/assign', data).pipe(
+      map((data)=> {
+        return data;
+      }),
+      catchError((error)=>{
+        return throwError(error);
+      })
+    );
+  }
 }

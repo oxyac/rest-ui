@@ -23,9 +23,8 @@ export class ProgrammerService {
     );
   }
 
-  assignEachToProject(programmer_ids: number[], dep_id: number) {
-    for (const programmerId of programmer_ids) {
-      this.http.put<ResponseHttp>(environment.apiUrl + 'api/programmers/' + programmerId, dep_id).pipe(
+  assignEachToDepartment(data: object) {
+      this.http.put<ResponseHttp>(environment.apiUrl + 'api/programmers/assign', data).pipe(
         map((data)=> {
           return data;
         }),
@@ -33,6 +32,16 @@ export class ProgrammerService {
           return throwError(error);
         })
       );
-    }
+  }
+
+  getAssignedProgers(id: number) {
+    return this.http.get<ResponseHttp>(environment.apiUrl + 'api/programmers/' + id + '/department').pipe(
+      map((data)=> {
+        return data;
+      }),
+      catchError((error)=>{
+        return throwError(error);
+      })
+    );
   }
 }

@@ -5,4 +5,5 @@ export interface Project{
   is_active: boolean;
 
   client_id?: number;
+  department_id?: number;
 }
