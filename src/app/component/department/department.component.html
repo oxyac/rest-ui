@@ -1,1 +1,16 @@
-<p>department works!</p>
+<div class="row">
+  <div class="col-sm-4" *ngFor="let department of departments">
+    <h4 class="card-header" text="center"><a class="text-secondary" [href]="">{{department.name}}</a></h4>
+    <div class="card">
+      <div class="card-body">
+        <div class="row row-cols-2">
+          <div class="p-3">{{department?.project?.name}}</div>
+          <div class="p-3 text-right">kkkkk</div>
+        </div>
+        <div class="text-right">
+          <button class="btn btn-primary" [routerLink]="['form', department.id]">Edit Department</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

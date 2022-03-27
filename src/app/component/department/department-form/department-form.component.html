@@ -1,0 +1,87 @@
+<div class="card"
+     *ngIf="department">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+  <div class="card-body">
+
+    <form [formGroup]="form_dept" (ngSubmit)="onSubmit()">
+      <fieldset>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label"
+                 for="name">Department Name</label>
+          <div class="col-md-9">
+            <input formControlName="name" type="text" class="form-control" id="name"
+                   placeholder="Enter Language"
+                   [ngClass]="{'form-control': true, 'error' : f['name'].invalid && f['name'].touched}">
+          </div>
+        </div>
+
+        <br>
+        <div class="form-group">
+          <label class="col-md-3 col-form-label" for="language">Language Employé</label>
+          <div class="col-md-9">
+            <input formControlName="language" type="text" class="form-control" id="language"
+                   placeholder="Enter Language"
+                   [ngClass]="{'form-control': true, 'error' : f['language'].invalid && f['language'].touched}">
+          </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+          <form [formGroup]="dropDownForm">
+            <ng-multiselect-dropdown
+              [placeholder]="'Assign Programmers to Department'"
+              [settings]="dropdownSettings"
+              [data]="dropdownList"
+              formControlName="progs"
+              (onSelect)="onItemSelect($event)"
+              (onSelectAll)="onSelectAll($event)"
+              (onDeSelect)="onItemDeSelect($event)"
+              (onDeSelectAll)="onUnSelectAll()">
+            </ng-multiselect-dropdown>
+          </form>
+        </div>
+
+        <div class="form-group row">
+          <select formControlName="project_id" class="form-select" id="project_id">
+            <option selected value="1">Assign To Project</option>
+            <option *ngFor="let p of projects" [value]="p.id"
+                    [selected]="project.id == p.id">{{p.name}}</option>
+
+          </select>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-10 col-md-offset-2">
+            <span>
+              <button *ngIf="id" [disabled]="form_dept.invalid" type="submit" class="btn btn-success">
+                Save
+              </button>
+            </span>
+                  <span>
+                          <button class="btn btn-light"
+                                  type="button"
+                                  style="width:80px;margin-right:10px"
+                                  (click)="cancelEdit(department)">
+                            Cancel
+                          </button>
+                        </span>
+<!--                  <span>-->
+<!--                          <button class="btn btn-light"-->
+<!--                                  type="button"-->
+<!--                                  style="width:80px"-->
+<!--                                  (click)="deleteDepartment()">-->
+<!--                            Delete-->
+<!--                          </button>-->
+<!--                        </span>-->
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<div *ngIf="errorMessage"
+     class="alert alert-danger">
+  Error: {{ errorMessage }}
+</div>

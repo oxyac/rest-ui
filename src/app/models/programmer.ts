@@ -1,10 +1,10 @@
 export interface Programmer{
   id: number;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
 
   level?: number;
   phone?: number;
   email?: string;
-  department_id?: string;
+  departmentId?: string;
 }
